@@ -1,10 +1,15 @@
 .App {
-  text-align: center;
+  width: 1200px;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,19 +18,8 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+button {
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +29,44 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.Btn {
+  border: none;
+}
+
+.Page {
+  margin-top: 60px;
+  padding: 20px 0;
+}
+.Page::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #f6f6f6;
+  z-index: -1;
+}
+
+.OverLay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(119, 116, 116, 0.485);
+  z-index: 11;
 }

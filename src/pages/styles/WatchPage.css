@@ -1,0 +1,54 @@
+.WatchPage{
+
+}
+
+.WatchPageVideo{
+   width: 720px;
+}
+
+.WatchPageVideo{
+
+}
+
+.WatchPageVideoInfo{
+   
+}
+
+.WatchPageVideoTitle{
+   font-weight: 600;
+   font-size: 18px;
+   text-transform: uppercase;
+}
+
+.WatchPageVideoBottom{
+   display: flex;
+   justify-content: space-between;
+}
+
+.WatchPageVideoViewCount{
+
+}
+
+.WatchPageVideoLikeAndDislikeCount{
+   display: flex;
+}
+.WatchPageVideoLikeCount,
+.WatchPageVideoDislikeCount{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+}
+
+.WatchPageVideoLikeCount{
+   margin-right: 10px;
+}
+
+.WatchPageVideoDislikeCount{
+   text-transform: uppercase;
+}
+
+.WatchPageVideoPlayList{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+}

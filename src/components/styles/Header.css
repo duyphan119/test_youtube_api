@@ -1,0 +1,73 @@
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0 100px;
+  background-color: white;
+  z-index: 10;
+}
+
+.HeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.HeaderLeft {
+  flex: 1;
+  cursor: pointer;
+}
+.HeaderMiddle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.HeaderForm {
+  border: 1px solid #d1d1d1;
+  width: 400px;
+  display: flex;
+  align-items: center;
+}
+.HeaderForm input {
+  outline: none;
+  border: none;
+  flex: 1;
+  padding-inline: 5px;
+}
+.HeaderForm button {
+  border: none;
+  background-color: #f1f1f1;
+  padding: 8px 5px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.HeaderRight {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.HeaderRightUser{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.HeaderRightUser span{
+  margin-right: 10px;
+}
+
+.HeaderRightUser img{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}

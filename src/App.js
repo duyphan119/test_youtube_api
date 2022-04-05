@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import PlayList from './components/PlayList';
+import routes from "./routes";
 import './App.css';
+import Toast from './components/Toast';
+
+export const AppContext = React.createContext();
 
 function App() {
+
+  const [playListVisible, setPlayListVisible] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{
+      playListVisible: playListVisible,
+      setPlayListVisible: setPlayListVisible
+    }}>
+      <div className='App'>
+        <Header />
+        {routes()}
+        {playListVisible && <PlayList />}
+      </div>
+      <Toast />
+    </AppContext.Provider>
   );
 }
 
