@@ -51,14 +51,7 @@ export const apiOAuthLogin = async (code, dispatch, navigate) => {
 };
 export const apiLogout = async (dispatch) => {
   try {
-    await axios.post(
-      `${API_URL}/logout`,
-      {
-        withCredentials: true,
-      },
-      {},
-      { withCredentials: true }
-    );
+    await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     dispatch(login(null));
   } catch (error) {
     console.log(error);

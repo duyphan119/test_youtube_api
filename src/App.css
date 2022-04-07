@@ -70,3 +70,12 @@ a {
   background-color: rgba(119, 116, 116, 0.485);
   z-index: 11;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

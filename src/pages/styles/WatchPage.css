@@ -2,6 +2,12 @@
 
 }
 
+.WatchPage svg{
+   font-size: 22px;
+   margin-right: 5px;
+   transform: translateY(1px);
+}
+
 .WatchPageVideo{
    width: 720px;
 }
@@ -11,7 +17,7 @@
 }
 
 .WatchPageVideoInfo{
-   
+   font-size: 14px;
 }
 
 .WatchPageVideoTitle{
@@ -23,10 +29,11 @@
 .WatchPageVideoBottom{
    display: flex;
    justify-content: space-between;
+   margin-top: 10px;
 }
 
 .WatchPageVideoViewCount{
-
+   color:rgb(107, 109, 111);
 }
 
 .WatchPageVideoLikeAndDislikeCount{
@@ -43,8 +50,11 @@
    margin-right: 10px;
 }
 
+.WatchPageVideoPlayList,
+.WatchPageVideoLikeCount,
 .WatchPageVideoDislikeCount{
    text-transform: uppercase;
+   font-weight: 600;
 }
 
 .WatchPageVideoPlayList{

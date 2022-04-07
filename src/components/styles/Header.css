@@ -16,17 +16,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 
-.HeaderLeft {
-  flex: 1;
-  cursor: pointer;
-}
-.HeaderMiddle {
-  flex: 1;
+.HeaderLeft,
+.HeaderMiddle,
+.HeaderRight {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
+}
+.HeaderLeft {
+  justify-content: flex-start;
+}
+
+.HeaderLeft {
+  cursor: pointer;
 }
 .HeaderForm {
   border: 1px solid #d1d1d1;
@@ -50,24 +57,51 @@
   justify-content: center;
 }
 .HeaderRight {
-  flex: 1;
-  display: flex;
-  align-items: center;
   justify-content: flex-end;
 }
 
-.HeaderRightUser{
+.HeaderRightUser {
   display: flex;
   align-items: center;
   cursor: pointer;
+  height: 100%;
+  position: relative;
+  user-select: none;
 }
 
-.HeaderRightUser span{
+.HeaderRightUser span {
   margin-right: 10px;
 }
 
-.HeaderRightUser img{
+.HeaderRightUser img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
+}
+
+.HeaderRightUserNotification {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  white-space: nowrap;
+  display: none;
+  opacity: 0;
+}
+
+.HeaderRightUserNotificationItem {
+  padding: 5px 10px;
+  text-align: right;
+  cursor: pointer;
+  display: block;
+}
+
+.HeaderRightUserNotificationItem:hover {
+  background-color: rgb(133, 188, 233);
+}
+
+#HeaderRightUserNotificationInput:checked + .HeaderRightUserNotification {
+  display: block;
+  opacity: 1;
+  animation: fadeIn ease 0.5s;
 }

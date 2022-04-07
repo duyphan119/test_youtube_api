@@ -23,7 +23,7 @@ const Video = (props) => {
          return <iframe width={video.snippet.thumbnails.medium.width} height={video.snippet.thumbnails.medium.height}
             title={video.snippet.title}
             frameBorder="0"
-            src={`https://www.youtube.com/embed/${video.id.videoId ? video.id.videoId : video.id}?autoplay=1&mute=1&showinfo=0&controls=0&autohide=0&modestbranding=0&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${video.id.videoId ? video.id.videoId : video.id}?autoplay=1&mute=1&showinfo=0&controls=0&autohide=0&modestbranding=0&rel=0`}
          ></iframe>
       } else {
          return <img src={video.snippet.thumbnails.medium.url} width={video.snippet.thumbnails.medium.width} height={video.snippet.thumbnails.medium.height} alt={video.snippet.title} />

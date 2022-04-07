@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import categorySlice from "./categorySlice";
+import loadingSlice from "./loadingSlice";
 import playlistSlice from "./playlistSlice";
 import toastSlice from "./toastSlice";
 import videoSlice from "./videoSlice";
@@ -10,7 +11,8 @@ const store = configureStore({
     auth: authSlice,
     video: videoSlice,
     playList: playlistSlice,
-    toast: toastSlice
+    toast: toastSlice,
+    loading: loadingSlice,
   },
 });
 

@@ -7,6 +7,8 @@ const Toast = () => {
 
    const msg = useSelector(state => state.toast.toast)
 
+   console.log(msg);
+
    useEffect(() => {
       if(msg.isVisible){
          toast[msg.type](msg.title, {

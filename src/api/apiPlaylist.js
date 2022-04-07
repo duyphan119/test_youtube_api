@@ -1,32 +1,43 @@
 import axios from "axios";
+import { configAxiosAuthorization } from "../config/configAxios";
 import * as constants from "../constants";
 import { getAllPlayLists } from "../redux/playlistSlice";
+import { showToast } from "../redux/toastSlice";
 const API_URL = `${constants.SERVER_URL}/v1/api/playlist`;
 
 export const apiGetAllPlayLists = async (user, dispatch) => {
    try {
-      const res = await axios.get(`${API_URL}`, {
-         headers: {
-            authorization: `Bearer ${user.accessToken}`
-         },
+      const res = await configAxiosAuthorization(user, dispatch).get(`${API_URL}`, {
          withCredentials: true
       })
-      dispatch(getAllPlayLists(res.data))
+      dispatch(getAllPlayLists(res))
    } catch (error) {
       console.log(error)
+      const code = error.response.data.code;
+      if(code === 401){
+         dispatch(showToast({
+            type: "info",
+            title: "Bạn cần đăng nhập để thực hiện thao tác",
+            isVisible: true
+         }))
+      }
    }
 }
 
-export const apiCreatePlayList = async (user, playList) => {
+export const apiCreatePlayList = async (user, playList, dispatch) => {
    try {
-      const res = await axios.post(`${API_URL}`, playList, {
-         headers: {
-            authorization: `Bearer ${user.accessToken}`
-         },
+      const res = await  configAxiosAuthorization(user, dispatch).post(`${API_URL}`, playList, {
          withCredentials: true
       })
-      return res.data;
+      return res;
    } catch (error) {
-      console.log(error)
+      const code = error.response.data.code;
+      if(code === 401){
+         dispatch(showToast({
+            type: "info",
+            title: "Bạn cần đăng nhập để thực hiện thao tác",
+            isVisible: true
+         }))
+      }
    }
 }
