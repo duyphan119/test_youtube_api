@@ -30,7 +30,6 @@ const create = async (access_token, refresh_token, item) => {
          access_token: access_token,
          refresh_token: refresh_token
       })
-      console.log(item)
       const resPlayListItem = await service.playlistItems.insert({
          part: ["id", "snippet", "status"],
          mine: true,
@@ -49,7 +48,76 @@ const create = async (access_token, refresh_token, item) => {
       })
       return {
          status: 200,
-         data: resPlayListItem.data
+         data: resPlayListItem
+      }
+   } catch (error) {
+      console.log(error)
+      return {
+         status: 500,
+         data: error
+      }
+   }
+}
+const getByVideoId = async (access_token, refresh_token, videoId) => {
+   try {
+      oauth2Client.setCredentials({
+         access_token: access_token,
+         refresh_token: refresh_token
+      })
+      const resPlayListItem = await service.playlistItems.list({
+         part: ["id", "snippet", "status", "contentDetails"],
+         auth: oauth2Client,
+         videoId: videoId,
+         maxResults: 50
+      })
+      return {
+         status: 200,
+         data: resPlayListItem
+      }
+   } catch (error) {
+      console.log(error)
+      return {
+         status: 500,
+         data: error
+      }
+   }
+}
+const getByPlayListId = async (access_token, refresh_token, playlistId) => {
+   try {
+      oauth2Client.setCredentials({
+         access_token: access_token,
+         refresh_token: refresh_token
+      })
+      const resPlayListItem = await service.playlistItems.list({
+         part: ["id", "snippet", "status", "contentDetails"],
+         auth: oauth2Client,
+         playlistId: playlistId
+      })
+      return {
+         status: 200,
+         data: resPlayListItem
+      }
+   } catch (error) {
+      console.log(error)
+      return {
+         status: 500,
+         data: error
+      }
+   }
+}
+const deletePlayListItem= async (access_token, refresh_token, id) => {
+   try {
+      oauth2Client.setCredentials({
+         access_token: access_token,
+         refresh_token: refresh_token
+      })
+      await service.playlistItems.delete({
+         auth: oauth2Client,
+         id: id
+      })
+      return {
+         status: 204,
+         data: "Deleted"
       }
    } catch (error) {
       console.log(error)
@@ -60,7 +128,12 @@ const create = async (access_token, refresh_token, item) => {
    }
 }
 
+
+
 module.exports = {
    getAll,
-   create
+   create,
+   getByPlayListId,
+   getByVideoId,
+   deletePlayListItem
 }

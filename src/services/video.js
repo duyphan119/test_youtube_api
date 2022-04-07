@@ -4,7 +4,7 @@ const channelService = require('./channel');
 const getById = async (id) => {
    try {
       const videos = await service.videos.list({
-         part: ["statistics", "snippet"],
+         part: ["statistics", "snippet", "topicDetails"],
          id: id
       })
       console.log(videos)
@@ -77,7 +77,7 @@ const searchVideos = async (q) => {
 const getByVideoCategoryId = async (categoryId) => {
    try {
       const resService = await service.videos.list({
-         "part": ["snippet", "contentDetails", "statistics"],
+         "part": ["snippet", "contentDetails", "statistics", "topicDetails"],
          "chart": "mostPopular",
          "videoCategoryId": categoryId,
          "regionCode": "VN",

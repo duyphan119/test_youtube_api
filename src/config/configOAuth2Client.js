@@ -2,8 +2,8 @@ const { google } = require('googleapis');
 require('dotenv').config();
 
 const service = google.youtube({
-   version: "v3"
-   , auth: process.env.API_KEY
+   version: "v3", 
+   auth: process.env.API_KEY
 })
 const oauth2Client = new google.auth.OAuth2(
    process.env.GOOGLE_CLIENT_ID,

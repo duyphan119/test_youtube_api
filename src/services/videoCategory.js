@@ -10,11 +10,13 @@ const getAll = async () => {
       const videoCategories = resService.data.items;
       const newVideoCategories = []
       for (let i = 0; i < videoCategories.length; i++) {
-         const videos = await videoService.getByVideoCategoryId(videoCategories[i].id);
-         videoCategories[i].snippet.videos = videos.data
-         if (videos.data.length !== 0) {
-            newVideoCategories.push(videoCategories[i])
-         }
+         // const videos = await videoService.getByVideoCategoryId(videoCategories[i].id);
+         // videoCategories[i].snippet.videos = videos.data
+         // if (videos.data.length !== 0) {
+         //    newVideoCategories.push(videoCategories[i])
+         // }
+         videoCategories[i].snippet.videos = []
+         newVideoCategories.push(videoCategories[i])
       }
 
       return {
