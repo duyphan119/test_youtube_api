@@ -1,0 +1,28 @@
+.PlayListItem {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px;
+}
+.PlayListItemThumbnail {
+  height: 82px;
+  width: 120px;
+}
+.PlayListItemThumbnail img {
+  height: 70px;
+  width: 120px;
+  object-fit: cover;
+}
+
+.PlayListItemInfo {
+  margin-left: 20px;
+}
+
+.PlayListItemTitle {
+  font-weight: 600;
+}
+
+.PlayListItemChannelTitle {
+  font-size: 14px;
+  margin-top: 10px;
+}

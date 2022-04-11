@@ -8,7 +8,6 @@ import {
   apiGetPlayListItemByPlayListId,
 } from "../api/apiPlayListItem";
 import { AppContext } from "../App";
-import { hideLoading, showLoading } from "../redux/loadingSlice";
 import { showToast } from "../redux/toastSlice";
 import "./styles/PlayList.css";
 
@@ -74,17 +73,6 @@ const PlayList = () => {
       })
     );
   };
-  useEffect(() => {
-    if (context.playListVisible) {
-      dispatch(showLoading());
-    }
-  }, [context.playListVisible, dispatch]);
-
-  useEffect(() => {
-    if (isInPlayList.length !== 0) {
-      dispatch(hideLoading());
-    }
-  }, [isInPlayList, dispatch]);
 
   useEffect(() => {
     const api = async () => {

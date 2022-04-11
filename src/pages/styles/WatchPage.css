@@ -1,64 +1,65 @@
-.WatchPage{
-
+.WatchPage {
 }
 
-.WatchPage svg{
-   font-size: 22px;
-   margin-right: 5px;
-   transform: translateY(1px);
+.WatchPage svg {
+  font-size: 22px;
+  margin-right: 5px;
+  transform: translateY(1px);
 }
 
-.WatchPageVideo{
-   width: 720px;
+.WatchPageVideo {
+  width: 720px;
 }
 
-.WatchPageVideo{
-
+.WatchPageVideo {
 }
 
-.WatchPageVideoInfo{
-   font-size: 14px;
+.WatchPageRight {
 }
 
-.WatchPageVideoTitle{
-   font-weight: 600;
-   font-size: 18px;
-   text-transform: uppercase;
+.WatchPageVideoInfo {
+  font-size: 14px;
 }
 
-.WatchPageVideoBottom{
-   display: flex;
-   justify-content: space-between;
-   margin-top: 10px;
+.WatchPageVideoTitle {
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
-.WatchPageVideoViewCount{
-   color:rgb(107, 109, 111);
+.WatchPageVideoBottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.WatchPageVideoLikeAndDislikeCount{
-   display: flex;
+.WatchPageVideoViewCount {
+  color: rgb(107, 109, 111);
+}
+
+.WatchPageVideoLikeAndDislikeCount {
+  display: flex;
 }
 .WatchPageVideoLikeCount,
-.WatchPageVideoDislikeCount{
-   display: flex;
-   align-items: center;
-   cursor: pointer;
+.WatchPageVideoDislikeCount {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-.WatchPageVideoLikeCount{
-   margin-right: 10px;
+.WatchPageVideoLikeCount {
+  margin-right: 10px;
 }
 
 .WatchPageVideoPlayList,
 .WatchPageVideoLikeCount,
-.WatchPageVideoDislikeCount{
-   text-transform: uppercase;
-   font-weight: 600;
+.WatchPageVideoDislikeCount {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.WatchPageVideoPlayList{
-   display: flex;
-   align-items: center;
-   cursor: pointer;
+.WatchPageVideoPlayList {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }

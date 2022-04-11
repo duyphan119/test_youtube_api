@@ -1,39 +1,63 @@
-import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Video from "../components/Video";
-import { getAllCategories } from "../redux/categorySlice";
+import { apiGetAllPlayLists } from "../api/apiPlaylist";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-   const categories = useSelector(state => state.category.list);
-   const dispatch = useDispatch()
+  const user = useSelector((state) => state.auth.currentUser);
+  const playLists = useSelector((state) => state.playList.list);
 
-   useEffect(() => {
-      const api = async () => {
-         const res = await axios.get('http://localhost:5000/v1/api/video-category');
-         dispatch(getAllCategories(res.data))
-      }
-      api();
-   }, [dispatch])
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    apiGetAllPlayLists(user, dispatch);
+  }, [user, dispatch]);
 
-   console.log(categories);
-   return (
-      <>
-         {categories.map(category => {
-            return <Fragment key={category.id}>
-               {category.snippet.title}
-               <div style={{
-                  display: "flex"
-               }}>
-                  {category.snippet.videos.map(video => {
-                     return <Video key={video.etag} video={video} direction={"column"} />
-                  })}
-               </div>
-            </Fragment>
-         })}
-      </>
-   )
-}
+  console.log(playLists);
 
-export default HomePage
+  return (
+    <div className="Page HomePage">
+      <h1
+        style={{
+          textAlign: "center",
+          paddingTop: "10px",
+        }}
+      >
+        Danh sách phát của tôi
+      </h1>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        {playLists.map((playList) => {
+          return (
+            <Link
+              to={`/playlist?list=${playList.id}`}
+              key={playList.id}
+              style={{
+                width: "calc(25% - 20px)",
+                margin: "10px",
+                cursor: "pointer",
+                display: "block",
+                position: "relative",
+              }}
+            >
+              <img
+                src={playList.snippet.thumbnails.medium.url}
+                style={{
+                  width: "100%",
+                }}
+                // width={playList.snippet.thumbnails.medium.width}
+                // height={playList.snippet.thumbnails.medium.height}
+                alt=""
+              />
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;

@@ -1,13 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { getVideoById } from "../api/apiVideo";
+import { useContext, useEffect } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { MdPlaylistAdd } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { apiGetPlayListById } from "../api/apiPlaylist";
+import { apiGetPlayListItemByPlayListId } from "../api/apiPlayListItem";
+import { getVideoById } from "../api/apiVideo";
 import { AppContext } from "../App";
+import PlayListItem from "../components/PlayListItem";
+import { getCurrentPlayList } from "../redux/playlistSlice";
 import { getCurrentVideo } from "../redux/videoSlice";
 import "./styles/WatchPage.css";
-import { hideLoading, showLoading } from "../redux/loadingSlice";
 
 const WatchPage = () => {
   const context = useContext(AppContext);
@@ -16,26 +19,36 @@ const WatchPage = () => {
 
   const video = useSelector((state) => state.video.currentVideo);
   const user = useSelector((state) => state.auth.currentUser);
+  const playList = useSelector((state) => state.playList.currentPlaylist);
 
   const [queryParams] = useSearchParams();
   const videoId = queryParams.get("v");
+  // const list = queryParams.get("list");
   const list = queryParams.get("list");
 
-  console.log(video);
+  useEffect(() => {
+    const api = async () => {
+      const item = await apiGetPlayListById(user, list, dispatch);
+      const childrenItems = await apiGetPlayListItemByPlayListId(
+        user,
+        item.id,
+        dispatch
+      );
+      item.items = childrenItems;
+      dispatch(getCurrentPlayList(item));
+    };
+    api();
+  }, [list, user, dispatch]);
+  console.log(playList);
 
   const handleClickPlayList = () => {
     context.setPlayListVisible(true);
   };
 
   useEffect(() => {
-    dispatch(showLoading());
-  }, [dispatch]);
-
-  useEffect(() => {
     getVideoById(videoId, dispatch)
       .then((res) => {
         dispatch(getCurrentVideo(res));
-        dispatch(hideLoading());
       })
       .catch((err) => console.log(err));
   }, [videoId, dispatch, user]);
@@ -50,7 +63,7 @@ const WatchPage = () => {
           height="480"
           title={videoId}
           frameBorder="0"
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`}
         ></iframe>
         <div className="WatchPageVideoInfo">
           <div className="WatchPageVideoTitle">{video.snippet.title}</div>
@@ -86,7 +99,14 @@ const WatchPage = () => {
           </div>
         </div>
       </div>
-      <div className="WatchPageRelateVideo"></div>
+      <div className="WatchPageRight">
+        <div className="PlayListPageItemsContainer CustomScrollbar">
+          {playList?.items.map((item, index) => {
+            return <PlayListItem item={item} key={index} index={index} />;
+          })}
+        </div>
+        {/* <div className="WatchPageRelateVideo"></div> */}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,119 @@
+.PlayListInfo {
+  width: 380px;
+  height: calc(100vh - 60px);
+  padding: 30px;
+  background-color: #efefef;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.PlayListInfoThumbnail {
+  position: relative;
+}
+
+.PlayListInfoDescription,
+.PlayListInfoTitle {
+  margin: 10px 0;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.PlayListInfoTitle svg {
+  cursor: pointer;
+}
+.PlayListInfoFormUpdateDescription,
+.PlayListInfoTitleFormUpdate {
+  margin: 10px 0;
+}
+.PlayListInfoFormUpdateDescription input {
+  width: 100%;
+  outline: none;
+  padding: 5px;
+}
+.PlayListInfoTitleFormUpdate input {
+  width: 100%;
+  outline: none;
+  padding: 5px;
+  font-size: 18px;
+}
+.PlayListInfoTitleFormUpdateActions {
+  width: 100%;
+  text-align: right;
+}
+
+.PlayListInfoTitleFormUpdateActions button {
+  border: none;
+  background-color: unset;
+}
+
+.PlayListInfoTitleFormUpdateAction {
+  padding: 5px;
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+.PlayListInfoTitleFormUpdateActionCancel {
+  margin-right: 15px;
+}
+
+.PlayListInfoTitleFormUpdateActionSave {
+  color: #11f;
+  font-weight: bold;
+}
+
+.PlayListInfoStatistics {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: gray;
+}
+.PlayListInfoPrivacyStatus {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: gray;
+}
+.PlayListInfoPrivacyStatus svg {
+  margin-left: 5px;
+}
+.PlayListInfoActions {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+.PlayListInfoAction {
+  margin-right: 30px;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgb(69, 69, 69);
+}
+
+.PlayListInfoDescription {
+  font-size: 14px;
+}
+.PlayListInfoDescription svg {
+  cursor: pointer;
+}
+.PlayListInfoAuthor {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.PlayListInfoAuthor span {
+  font-weight: 600;
+  font-size: 14px;
+}
+.PlayListInfoAuthor img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.PlayListInfoAuthor span,
+.PlayListInfoAuthor img {
+  cursor: pointer;
+}

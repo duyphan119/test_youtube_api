@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   list: [],
+  currentPlaylist: null,
   page: {
     prev: "",
-    next: ""
-  }
+    next: "",
+  },
 };
 const playListSlice = createSlice({
   name: "playList",
@@ -15,7 +16,10 @@ const playListSlice = createSlice({
       state.page.next = action.payload.nextPageToken;
       state.page.prev = action.payload.prevPageToken;
     },
+    getCurrentPlayList: (state, action) => {
+      state.currentPlaylist = action.payload;
+    },
   },
 });
-export const { getAllPlayLists } = playListSlice.actions;
+export const { getAllPlayLists, getCurrentPlayList } = playListSlice.actions;
 export default playListSlice.reducer;
