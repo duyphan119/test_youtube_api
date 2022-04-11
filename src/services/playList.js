@@ -24,6 +24,31 @@ const getAll = async (access_token, refresh_token) => {
     };
   }
 };
+
+const getById = async (access_token, refresh_token, id) => {
+  try {
+    oauth2Client.setCredentials({
+      access_token: access_token,
+      refresh_token: refresh_token,
+    });
+    const playLists = await service.playlists.list({
+      part: ["id", "snippet", "status"],
+      auth: oauth2Client,
+      id: id,
+    });
+    return {
+      status: 200,
+      data: playLists.data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      data: error,
+    };
+  }
+};
+
 const create = async (access_token, refresh_token, playList) => {
   try {
     oauth2Client.setCredentials({
@@ -56,7 +81,35 @@ const create = async (access_token, refresh_token, playList) => {
   }
 };
 
+const update = async (access_token, refresh_token, playList) => {
+  try {
+    oauth2Client.setCredentials({
+      access_token: access_token,
+      refresh_token: refresh_token,
+    });
+    const resPlayList = await service.playlists.update({
+      part: ["id", "snippet", "status", "player", "contentDetails"],
+      auth: oauth2Client,
+      requestBody: {
+        ...playList,
+      },
+    });
+    return {
+      status: 200,
+      data: resPlayList.data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      data: error,
+    };
+  }
+};
+
 module.exports = {
   getAll,
   create,
+  getById,
+  update,
 };
