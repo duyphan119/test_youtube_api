@@ -1,5 +1,7 @@
 import { configAxiosAuthorization } from "../config/configAxios";
 import * as constants from "../constants";
+import { removePlayListItem } from "../redux/playlistSlice";
+import { showToast } from "../redux/toastSlice";
 const API_URL = `${constants.SERVER_URL}/v1/api/playlistItem`;
 
 export const apiCreatePlayListItem = async (user, playListItem, dispatch) => {
@@ -52,7 +54,22 @@ export const apiDeletePlayListItem = async (user, id, dispatch) => {
     await configAxiosAuthorization(user, dispatch).delete(`${API_URL}/${id}`, {
       withCredentials: true,
     });
+    dispatch(removePlayListItem(id));
+    dispatch(
+      showToast({
+        type: "success",
+        title: "Xoá thành công",
+        isVisible: true,
+      })
+    );
   } catch (error) {
     console.log(error.response);
+    dispatch(
+      showToast({
+        type: "error",
+        title: "Xoá thất bại",
+        isVisible: true,
+      })
+    );
   }
 };

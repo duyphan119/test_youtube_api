@@ -19,7 +19,13 @@ const playListSlice = createSlice({
     getCurrentPlayList: (state, action) => {
       state.currentPlaylist = action.payload;
     },
+    removePlayListItem: (state, action) => {
+      state.currentPlaylist.items = state.currentPlaylist.items.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
-export const { getAllPlayLists, getCurrentPlayList } = playListSlice.actions;
+export const { getAllPlayLists, getCurrentPlayList, removePlayListItem } =
+  playListSlice.actions;
 export default playListSlice.reducer;

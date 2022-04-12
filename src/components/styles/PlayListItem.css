@@ -30,6 +30,23 @@
   margin-left: 20px;
 }
 
+.PlayListItemInfo.IsPlaying {
+  padding-right: 30px;
+  position: relative;
+}
+
+.IsPlaying span {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
 .PlayListItemTitle {
   font-size: 14px;
   font-weight: 600;

@@ -15,16 +15,18 @@ const PlayListInfo = ({ playList }) => {
 
   const dispatch = useDispatch();
 
-  console.log(playList);
+  console.log(playList.snippet.title, playList.snippet.description);
 
   const [indexRandom, setIndexRadom] = useState(-1);
   const [showFormUpdateTitle, setShowFormUpdateTitle] = useState(false);
   const [showFormUpdateDescription, setShowFormUpdateDescription] =
     useState(false);
   const [newPlayList, setNewPlayList] = useState({
-    title: "",
-    description: "",
+    title: playList.snippet.title,
+    description: playList.snippet.description,
   });
+
+  console.log(newPlayList);
 
   const handleUpdateTitle = async (e) => {
     e.preventDefault();
@@ -49,7 +51,7 @@ const PlayListInfo = ({ playList }) => {
       },
     };
     const data = await apiUpdatePlayList(user, reqApi, dispatch);
-    setNewPlayList({ ...newPlayList, description: data.snippet.description });
+    console.log(data);
     setShowFormUpdateDescription(!showFormUpdateDescription);
   };
 
@@ -64,48 +66,50 @@ const PlayListInfo = ({ playList }) => {
     setIndexRadom(random);
   }, [playList.items]);
 
-  useEffect(() => {
-    setNewPlayList((prev) => {
-      return {
-        ...prev,
-        title: playList.snippet.title,
-        description: playList.snippet.description,
-      };
-    });
-  }, [playList]);
+  // useEffect(() => {
+  //   setNewPlayList((prev) => {
+  //     return {
+  //       ...prev,
+  //       title: playList.snippet.title,
+  //       description: playList.snippet.description,
+  //     };
+  //   });
+  // }, [playList]);
 
   return (
     <div className="PlayListInfo CustomScrollbar">
       <div className="PlayListInfoThumbnail">
         <img
           src={
-            playList.items.length !== 0
-              ? playList.items[0].snippet.thumbnails.medium.url
-              : ""
+            playList?.items.length !== 0
+              ? playList.snippet.thumbnails.medium.url
+              : "https://i.ytimg.com/img/no_thumbnail.jpg"
           }
           width={playList.snippet.thumbnails.medium.width}
           height={playList.snippet.thumbnails.medium.height}
           alt=""
         />
-        <Link
-          to={`/watch?v=${playList.items[0].snippet.resourceId.videoId}&list=${
-            playList.items[0].snippet.playlistId
-          }&index=${1}`}
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            width: "100%",
-            left: 0,
-            backgroundColor: "rgb(0,0,0,0.8)",
-            textAlign: "center",
-            paddingBlock: "10px",
-            textTransform: "uppercase",
-            color: "white",
-            cursor: "pointer",
-          }}
-        >
-          Phát tất cả
-        </Link>
+        {playList.items.length > 0 && (
+          <Link
+            to={`/watch?v=${
+              playList.items[0].snippet.resourceId.videoId
+            }&list=${playList.items[0].snippet.playlistId}&index=${1}`}
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              width: "100%",
+              left: 0,
+              backgroundColor: "rgb(0,0,0,0.8)",
+              textAlign: "center",
+              paddingBlock: "10px",
+              textTransform: "uppercase",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            Phát tất cả
+          </Link>
+        )}
       </div>
       {showFormUpdateTitle ? (
         <form
@@ -152,7 +156,7 @@ const PlayListInfo = ({ playList }) => {
         </form>
       ) : (
         <div className="PlayListInfoTitle">
-          <span>{playList.snippet.title}</span>
+          <span>{newPlayList.title}</span>
           <BsPencil
             onClick={() => setShowFormUpdateTitle(!showFormUpdateTitle)}
           />
@@ -169,25 +173,26 @@ const PlayListInfo = ({ playList }) => {
       </div>
       <div className="PlayListInfoPrivacyStatus">
         <span>Riêng tư</span>
-        <BsChevronDown />
+        {/* <BsChevronDown /> */}
       </div>
       <div className="PlayListInfoActions">
-        {indexRandom !== -1 ? (
-          <Link
-            to={`/watch?v=${
-              playList.items[indexRandom].snippet.resourceId.videoId
-            }&list=${playList.items[indexRandom].snippet.playlistId}&index=${
-              indexRandom + 1
-            }`}
-            className="PlayListInfoAction"
-          >
-            <FaRandom />
-          </Link>
-        ) : (
-          <div className="PlayListInfoAction">
-            <FaRandom />
-          </div>
-        )}
+        {playList.items.length > 0 &&
+          (indexRandom !== -1 ? (
+            <Link
+              to={`/watch?v=${
+                playList.items[indexRandom].snippet.resourceId.videoId
+              }&list=${playList.items[indexRandom].snippet.playlistId}&index=${
+                indexRandom + 1
+              }`}
+              className="PlayListInfoAction"
+            >
+              <FaRandom />
+            </Link>
+          ) : (
+            <div className="PlayListInfoAction">
+              <FaRandom />
+            </div>
+          ))}
         <div className="PlayListInfoAction" onClick={handleDelete}>
           <MdDelete />
         </div>
@@ -238,7 +243,7 @@ const PlayListInfo = ({ playList }) => {
       ) : (
         <div className="PlayListInfoDescription">
           <span>
-            {playList.snippet.description === ""
+            {newPlayList.description === ""
               ? "Không có mô tả nào"
               : newPlayList.description}
           </span>
