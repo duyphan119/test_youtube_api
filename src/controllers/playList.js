@@ -35,5 +35,14 @@ const playListController = {
     const { status, data } = response;
     res.status(status).send(data);
   },
+  _delete: async (req, res) => {
+    const response = await playListService._delete(
+      req.token,
+      req.cookies.refresh_token,
+      req.params.id
+    );
+    const { status, data } = response;
+    res.status(status).send(data);
+  },
 };
 module.exports = playListController;

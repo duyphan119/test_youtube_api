@@ -1,6 +1,9 @@
 const { oauth2Client } = require("../config/configOAuth2Client");
 const { google } = require("googleapis");
 const scopes = [
+  "https://www.googleapis.com/auth/userinfo.email",
+  "https://www.googleapis.com/auth/userinfo.profile",
+  "openid",
   "https://www.googleapis.com/auth/youtube",
   "https://www.googleapis.com/auth/youtube.force-ssl",
   "https://www.googleapis.com/auth/youtube.readonly",
@@ -20,7 +23,6 @@ const auth = {
     try {
       const { code } = req.query;
       const { tokens } = await oauth2Client.getToken(code);
-
       oauth2Client.setCredentials(tokens);
 
       const oauth2 = google.oauth2({
@@ -28,6 +30,7 @@ const auth = {
         version: "v2",
       });
       const resUser = await oauth2.userinfo.get();
+      console.log("resUser", resUser);
       res.cookie("refresh_token", tokens.refresh_token, {
         httpOnly: true,
         secure: true,
@@ -45,7 +48,6 @@ const auth = {
     }
   },
   logout: (req, res) => {
-    req.logout();
     res.clearCookie("refresh_token");
     return res.status(200).json("Logout");
   },

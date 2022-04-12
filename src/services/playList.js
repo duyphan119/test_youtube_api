@@ -11,7 +11,9 @@ const getAll = async (access_token, refresh_token) => {
       part: ["id", "snippet", "status"],
       mine: true,
       auth: oauth2Client,
+      maxResults: 50,
     });
+    console.log(playLists);
     return {
       status: 200,
       data: playLists.data,
@@ -49,6 +51,29 @@ const getById = async (access_token, refresh_token, id) => {
   }
 };
 
+const _delete = async (access_token, refresh_token, id) => {
+  try {
+    oauth2Client.setCredentials({
+      access_token: access_token,
+      refresh_token: refresh_token,
+    });
+    await service.playlists.delete({
+      id: id,
+      auth: oauth2Client,
+    });
+    return {
+      status: 200,
+      data: "Deleted",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      data: error,
+    };
+  }
+};
+
 const create = async (access_token, refresh_token, playList) => {
   try {
     oauth2Client.setCredentials({
@@ -73,7 +98,7 @@ const create = async (access_token, refresh_token, playList) => {
       data: resPlayList.data,
     };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       status: 500,
       data: error,
@@ -112,4 +137,5 @@ module.exports = {
   create,
   getById,
   update,
+  _delete,
 };
