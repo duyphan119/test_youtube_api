@@ -18,14 +18,16 @@ const PlayListPage = () => {
 
   useEffect(() => {
     const api = async () => {
-      const item = await apiGetPlayListById(user, list, dispatch);
-      const childrenItems = await apiGetPlayListItemByPlayListId(
-        user,
-        item.id,
-        dispatch
-      );
-      item.items = childrenItems;
-      dispatch(getCurrentPlayList(item));
+      if (list) {
+        const item = await apiGetPlayListById(user, list, dispatch);
+        const childrenItems = await apiGetPlayListItemByPlayListId(
+          user,
+          item.id,
+          dispatch
+        );
+        item.items = childrenItems;
+        dispatch(getCurrentPlayList(item));
+      }
     };
     api();
   }, [list, user, dispatch]);

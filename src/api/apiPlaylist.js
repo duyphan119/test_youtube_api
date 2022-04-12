@@ -1,6 +1,6 @@
 import { configAxiosAuthorization } from "../config/configAxios";
 import * as constants from "../constants";
-import { getAllPlayLists } from "../redux/playlistSlice";
+import { getAllPlayLists, getCurrentPlayList } from "../redux/playlistSlice";
 import { showToast } from "../redux/toastSlice";
 const API_URL = `${constants.SERVER_URL}/v1/api/playlist`;
 
@@ -21,6 +21,15 @@ export const apiGetAllPlayLists = async (user, dispatch) => {
         showToast({
           type: "info",
           title: "Bạn cần đăng nhập để thực hiện thao tác",
+          isVisible: true,
+        })
+      );
+    }
+    if (code === 404 && error.response.errors.reason === "channelNotFound") {
+      dispatch(
+        showToast({
+          type: "info",
+          title: "Bạn cần tạo kênh để thực hiện thao tác",
           isVisible: true,
         })
       );
@@ -73,6 +82,17 @@ export const apiCreatePlayList = async (user, playList, dispatch) => {
         })
       );
     }
+  }
+};
+export const apiDeletePlayList = async (user, id, dispatch) => {
+  try {
+    await configAxiosAuthorization(user, dispatch).delete(
+      `${API_URL}/${id}`,
+      {}
+    );
+    dispatch(getCurrentPlayList(null));
+  } catch (error) {
+    console.log(error);
   }
 };
 

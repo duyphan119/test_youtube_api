@@ -47,7 +47,7 @@
 }
 
 .PlayListItem input[type="checkbox"]:checked + .CustomCheckBox {
-  background-color: red;
+  background-color: rgb(153, 230, 245);
 }
 
 .PlayListItemTitle {
@@ -81,14 +81,14 @@
   width: 50px;
   display: block;
   margin: 5px auto;
-  border:none;
+  border: none;
   background-color: unset;
-  color:rgb(33, 126, 208);
+  color: rgb(33, 126, 208);
   font-weight: 600;
   font-size: 18px;
   text-transform: uppercase;
   padding: 5px;
 }
-.FormBtnSubmit:hover{
+.FormBtnSubmit:hover {
   background-color: aliceblue;
 }

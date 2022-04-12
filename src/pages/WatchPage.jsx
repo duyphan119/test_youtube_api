@@ -25,17 +25,20 @@ const WatchPage = () => {
   const videoId = queryParams.get("v");
   // const list = queryParams.get("list");
   const list = queryParams.get("list");
+  const index = queryParams.get("index");
 
   useEffect(() => {
     const api = async () => {
-      const item = await apiGetPlayListById(user, list, dispatch);
-      const childrenItems = await apiGetPlayListItemByPlayListId(
-        user,
-        item.id,
-        dispatch
-      );
-      item.items = childrenItems;
-      dispatch(getCurrentPlayList(item));
+      if (list) {
+        const item = await apiGetPlayListById(user, list, dispatch);
+        const childrenItems = await apiGetPlayListItemByPlayListId(
+          user,
+          item.id,
+          dispatch
+        );
+        item.items = childrenItems;
+        dispatch(getCurrentPlayList(item));
+      }
     };
     api();
   }, [list, user, dispatch]);
@@ -56,10 +59,15 @@ const WatchPage = () => {
   if (!video) return "";
 
   return (
-    <div className="WatchPage Page">
+    <div
+      className="WatchPage Page"
+      style={{
+        display: "flex",
+      }}
+    >
       <div className="WatchPageVideo">
         <iframe
-          width="720"
+          width="800"
           height="480"
           title={videoId}
           frameBorder="0"
@@ -99,12 +107,63 @@ const WatchPage = () => {
           </div>
         </div>
       </div>
-      <div className="WatchPageRight">
-        <div className="PlayListPageItemsContainer CustomScrollbar">
-          {playList?.items.map((item, index) => {
-            return <PlayListItem item={item} key={index} index={index} />;
-          })}
-        </div>
+      <div
+        className="WatchPageRight"
+        style={{
+          marginLeft: "20px",
+        }}
+      >
+        {list && (
+          <div
+            className="PlayListPageItemsContainer"
+            style={{
+              padding: "10px",
+              height: "530px",
+              backgroundColor: "#fff",
+              boxShadow: "0px 0px 4px 0 lightgray",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                height: "25px",
+                padding: "0 10px",
+                fontWeight: "bold",
+                fontSize: "14px",
+              }}
+            >
+              {playList?.snippet.title}
+            </div>
+            <div
+              style={{
+                height: "25px",
+                padding: "0 10px",
+                fontSize: "14px",
+              }}
+            >
+              {index ? index : 1}/{playList?.items.length}
+            </div>
+            <div
+              className="CustomScrollbar"
+              style={{
+                height: "480px",
+                overflowY: "scroll",
+              }}
+            >
+              {playList?.items.map((item, i) => {
+                return (
+                  <PlayListItem
+                    isActive={i === index - 1}
+                    classNameImg="WatchPagePlayListItem"
+                    item={item}
+                    key={i}
+                    index={i}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
         {/* <div className="WatchPageRelateVideo"></div> */}
       </div>
     </div>

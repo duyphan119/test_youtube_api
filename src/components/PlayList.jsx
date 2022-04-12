@@ -37,6 +37,7 @@ const PlayList = () => {
       channelId: video.snippet.channelId,
       kind: video.kind,
     };
+    console.log(newPlayListItem);
     await apiCreatePlayListItem(user, newPlayListItem, dispatch);
     context.setPlayListVisible(false);
   };

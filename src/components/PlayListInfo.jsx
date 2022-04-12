@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { BsPencil, BsChevronDown } from "react-icons/bs";
 import { FaRandom } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { apiUpdatePlayList } from "../api/apiPlaylist";
+import { apiDeletePlayList, apiUpdatePlayList } from "../api/apiPlaylist";
 import "./styles/PlayListInfo.css";
 
 const maxLengthTitle = 150;
@@ -38,7 +39,25 @@ const PlayListInfo = ({ playList }) => {
     setShowFormUpdateTitle(!showFormUpdateTitle);
   };
 
-  console.log(newPlayList.title);
+  const handleUpdateDescription = async (e) => {
+    e.preventDefault();
+    const reqApi = {
+      id: playList.id,
+      snippet: {
+        title: newPlayList.title,
+        description: newPlayList.description,
+      },
+    };
+    const data = await apiUpdatePlayList(user, reqApi, dispatch);
+    setNewPlayList({ ...newPlayList, description: data.snippet.description });
+    setShowFormUpdateDescription(!showFormUpdateDescription);
+  };
+
+  console.log(playList);
+
+  const handleDelete = () => {
+    apiDeletePlayList(user, playList.id, dispatch);
+  };
 
   useEffect(() => {
     let random = Math.floor(Math.random() * playList.items.length);
@@ -68,7 +87,10 @@ const PlayListInfo = ({ playList }) => {
           height={playList.snippet.thumbnails.medium.height}
           alt=""
         />
-        <div
+        <Link
+          to={`/watch?v=${playList.items[0].snippet.resourceId.videoId}&list=${
+            playList.items[0].snippet.playlistId
+          }&index=${1}`}
           style={{
             position: "absolute",
             bottom: "10px",
@@ -79,10 +101,11 @@ const PlayListInfo = ({ playList }) => {
             paddingBlock: "10px",
             textTransform: "uppercase",
             color: "white",
+            cursor: "pointer",
           }}
         >
           Phát tất cả
-        </div>
+        </Link>
       </div>
       {showFormUpdateTitle ? (
         <form
@@ -139,10 +162,10 @@ const PlayListInfo = ({ playList }) => {
         <div className="PlayListInfoTotalVideo">
           {playList.items.length} video
         </div>
-        &nbsp;•&nbsp;
+        {/* &nbsp;•&nbsp;
         <div className="PlayListInfoTotalView">6 lượt xem</div>
         &nbsp;•&nbsp;
-        <div className="PlayListInfoLastUpdate">Cập nhật hôm nay</div>
+        <div className="PlayListInfoLastUpdate">Cập nhật hôm nay</div> */}
       </div>
       <div className="PlayListInfoPrivacyStatus">
         <span>Riêng tư</span>
@@ -151,7 +174,11 @@ const PlayListInfo = ({ playList }) => {
       <div className="PlayListInfoActions">
         {indexRandom !== -1 ? (
           <Link
-            to={`/watch?v=${playList.items[indexRandom].snippet.resourceId.videoId}&list=${playList.items[indexRandom].snippet.playlistId}`}
+            to={`/watch?v=${
+              playList.items[indexRandom].snippet.resourceId.videoId
+            }&list=${playList.items[indexRandom].snippet.playlistId}&index=${
+              indexRandom + 1
+            }`}
             className="PlayListInfoAction"
           >
             <FaRandom />
@@ -161,12 +188,15 @@ const PlayListInfo = ({ playList }) => {
             <FaRandom />
           </div>
         )}
-        <div className="PlayListInfoAction">
-          <FiMoreHorizontal />
+        <div className="PlayListInfoAction" onClick={handleDelete}>
+          <MdDelete />
         </div>
       </div>
       {showFormUpdateDescription ? (
-        <form className="PlayListInfoFormUpdateDescription">
+        <form
+          className="PlayListInfoFormUpdateDescription"
+          onSubmit={handleUpdateDescription}
+        >
           <input
             type="text"
             value={newPlayList.description}
@@ -210,7 +240,7 @@ const PlayListInfo = ({ playList }) => {
           <span>
             {playList.snippet.description === ""
               ? "Không có mô tả nào"
-              : playList.snippet.description}
+              : newPlayList.description}
           </span>
           <BsPencil
             onClick={() => {

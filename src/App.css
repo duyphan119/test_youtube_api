@@ -47,7 +47,7 @@ a {
 }
 
 .CustomScrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   background-color: rgb(205, 205, 205);
   border-radius: 5px;
 }
@@ -64,7 +64,7 @@ a {
 }
 
 .Page {
-  margin-top: 60px;
+  margin-top: 80px;
   min-height: calc(100vh - 60px);
 }
 .Page::before {

@@ -4,14 +4,26 @@
   width: 100%;
   padding: 10px;
 }
+.PlayListItem.active {
+  background-color: rgb(164, 223, 248);
+}
 .PlayListItemThumbnail {
   height: 82px;
   width: 120px;
 }
 .PlayListItemThumbnail img {
-  height: 70px;
+  height: 82px;
   width: 120px;
   object-fit: cover;
+}
+
+.WatchPagePlayListItem {
+  height: 60px;
+  width: 100px;
+}
+.WatchPagePlayListItem img {
+  height: 60px;
+  width: 100px;
 }
 
 .PlayListItemInfo {
@@ -19,10 +31,17 @@
 }
 
 .PlayListItemTitle {
+  font-size: 14px;
   font-weight: 600;
+  line-height: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 32px;
 }
 
 .PlayListItemChannelTitle {
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 10px;
 }

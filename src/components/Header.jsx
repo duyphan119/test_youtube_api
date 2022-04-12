@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    apiLogout(dispatch);
+    apiLogout(dispatch, navigate);
   };
 
   console.log(user);
@@ -54,8 +54,8 @@ const Header = () => {
               htmlFor="HeaderRightUserNotificationInput"
               className="HeaderRightUser"
             >
-              <span>{user.name}</span>
-              <img src={user.picture} alt={user.name} />
+              {user && <span>{user.name}</span>}
+              {user && <img src={user.picture} alt={user.name} />}
               <input
                 type="checkbox"
                 id="HeaderRightUserNotificationInput"

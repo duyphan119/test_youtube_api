@@ -48,8 +48,6 @@ const HomePage = () => {
                 style={{
                   width: "100%",
                 }}
-                // width={playList.snippet.thumbnails.medium.width}
-                // height={playList.snippet.thumbnails.medium.height}
                 alt=""
               />
             </Link>
